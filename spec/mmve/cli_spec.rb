@@ -26,9 +26,26 @@ describe MMVE::CLI do
   end
 
   describe '#run!' do
-    it 'does something' do
+    it 'edits the renamer source paths' do
+      renamer = double('renamer').as_null_object
+      allow(cli).to receive(:renamer) { renamer }
+      expect(cli.editor).to receive(:edit).with(cli.renamer.sources)
       cli.run!
-      pending
+    end
+
+    it 'assigns the edited source paths as the renamer destination paths' do
+      editor = double('editor')
+      allow(cli).to receive(:editor) { editor }
+      allow(editor).to receive(:edit) { arguments }
+      expect(cli.renamer).to receive(:destinations=).with(arguments)
+      cli.run!
+    end
+
+    it 'executes the renamer' do
+      editor = double('editor').as_null_object
+      allow(cli).to receive(:editor) { editor }
+      expect(cli.renamer).to receive(:execute!)
+      cli.run!
     end
 
     context 'when one of the arguments is -h' do
@@ -44,6 +61,32 @@ describe MMVE::CLI do
           expect(e.code).to be 0
         end
       end
+    end
+  end
+
+  describe '#editor' do
+    it 'builds an editor with current $EDITOR' do
+      expect(MMVE::Editor).to receive(:new).with(ENV['EDITOR'])
+      cli.editor
+    end
+
+    it 'returns the editor' do
+      editor = double('editor')
+      allow(MMVE::Editor).to receive(:new) { editor }
+      expect(cli.editor).to be editor
+    end
+  end
+
+  describe '#renamer' do
+    it 'builds a renamer with the paths given as argument' do
+      expect(MMVE::Renamer).to receive(:new).with(arguments)
+      cli.renamer
+    end
+
+    it 'returns the renamer' do
+      renamer = double('renamer')
+      allow(MMVE::Renamer).to receive(:new) { renamer }
+      expect(cli.renamer).to be renamer
     end
   end
 end

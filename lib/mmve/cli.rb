@@ -9,6 +9,16 @@ module MMVE
 
     def run!
       print_usage_and_exit if @arguments.include? '-h'
+      renamer.destinations = editor.edit renamer.sources
+      renamer.execute!
+    end
+
+    def editor
+      @editor ||= Editor.new(ENV['EDITOR'])
+    end
+
+    def renamer
+      @renamer ||= Renamer.new(@arguments)
     end
 
     private
