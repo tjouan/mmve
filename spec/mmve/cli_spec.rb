@@ -58,7 +58,7 @@ describe MMVE::CLI do
 
       it 'exits successfully' do
         expect { cli.run! }.to raise_error(SystemExit) do |e|
-          expect(e.code).to be 0
+          expect(e.status).to be 0
         end
       end
     end
