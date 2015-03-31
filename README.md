@@ -8,7 +8,7 @@ TODO
 ----
 
 * Recurse directories:
-  - `-r some_dir` will rename `some_dir` entries
+  - `-r some_dir` will rename `some_dir` entries.
     `somedir/` could also be used
   - `-rr some_dir` will rename all files found recursively in
     `some_dir`
