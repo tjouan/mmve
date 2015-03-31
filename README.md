@@ -1,7 +1,7 @@
 MMVE
 ====
 
-  Mass mv Edit: use your editor to move (rename) files.
+  Mass MV Edit: use your editor to move (rename) files.
 
 
 TODO
