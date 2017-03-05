@@ -1,0 +1,3 @@
+default: --no-source
+guard: --format pretty --quiet
+quiet: --format progress
