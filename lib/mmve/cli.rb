@@ -2,7 +2,7 @@ module MMVE
   class CLI
     USAGE = "Usage: #{File.basename $0} [ path ... ]".freeze
 
-    def initialize(arguments, stdout = $stdout)
+    def initialize arguments, stdout = $stdout
       @arguments  = arguments
       @stdout     = stdout
     end
@@ -14,14 +14,14 @@ module MMVE
     end
 
     def editor
-      @editor ||= Editor.new(ENV['EDITOR'])
+      @editor ||= Editor.new ENV['EDITOR']
     end
 
     def renamer
-      @renamer ||= Renamer.new(@arguments)
+      @renamer ||= Renamer.new @arguments
     end
 
-    private
+  private
 
     def print_usage_and_exit
       @stdout.puts USAGE
