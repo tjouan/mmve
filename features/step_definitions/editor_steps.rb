@@ -1,3 +1,3 @@
 Given(/^my editor is "(.*?)"$/) do |editor|
-  set_env('EDITOR', editor)
+  set_environment_variable 'EDITOR', editor
 end
