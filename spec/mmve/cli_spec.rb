@@ -1,7 +1,7 @@
 RSpec.describe MMVE::CLI do
   include ExitHelpers
 
-  let(:arguments) { [:some, :arguments] }
+  let(:arguments) { %i[some arguments] }
   let(:stdout)    { StringIO.new }
   subject(:cli)   { described_class.new arguments, stdout }
 
