@@ -39,5 +39,6 @@ install:
   - cd $TRAVIS_BUILD_DIR
   - gem install -g ~/spec_deps.rb
 script:
+  - export MMVE_CI=yes
   - export RUBYOPT=-I$(realpath lib)
   - rake
