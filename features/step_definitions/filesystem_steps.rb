@@ -1,3 +1,3 @@
-Given(/^the following files exists:$/) do |paths|
-  paths.raw.flatten.each { |p| write_file p, '' }
+Given /^the following files exists:$/ do |paths|
+  paths.raw.flatten.each { |e| write_file e, '' }
 end
