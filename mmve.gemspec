@@ -1,4 +1,4 @@
-require 'mmve/version'
+require File.expand_path('../lib/mmve/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name    = 'mmve'
