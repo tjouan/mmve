@@ -1,6 +1,6 @@
 RSpec.describe MMVE::Editor do
   let(:editor_command)  { 'some editor command' }
-  subject(:editor)      { MMVE::Editor.new editor_command }
+  subject(:editor)      { described_class.new editor_command }
 
   describe '#initialize' do
     it 'assigns the editor command' do

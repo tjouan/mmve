@@ -3,7 +3,7 @@ RSpec.describe MMVE::CLI do
 
   let(:arguments) { [:some, :arguments] }
   let(:stdout)    { StringIO.new }
-  subject(:cli)   { MMVE::CLI.new arguments, stdout }
+  subject(:cli)   { described_class.new arguments, stdout }
 
   describe '#initialize' do
     it 'assigns the arguments' do
@@ -55,7 +55,9 @@ RSpec.describe MMVE::CLI do
 
       it 'prints the usage' do
         trap_exit { cli.run! }
-        expect(stdout.string).to eq MMVE::CLI::USAGE + $/
+        expect(stdout.string).to eq <<-eoh
+Usage: rspec [ path ... ]
+        eoh
       end
 
       it 'exits successfully' do

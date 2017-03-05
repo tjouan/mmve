@@ -1,7 +1,7 @@
 RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_path] }
-  subject(:renamer)   { MMVE::Renamer.new sources }
+  subject(:renamer)   { described_class.new sources }
 
   describe '#initialize' do
     it 'assigns the source paths' do
