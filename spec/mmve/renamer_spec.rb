@@ -3,31 +3,12 @@ RSpec.describe MMVE::Renamer do
   let(:destinations)  { %w[renamed_path other_path] }
   subject(:renamer)   { described_class.new sources }
 
-  describe '#initialize' do
-    it 'assigns the source paths' do
-      expect(renamer.instance_eval { @sources }).to eq sources
-    end
-
-    it 'assigns destination paths equivalent to source paths' do
-      expect(renamer.instance_eval { @destinations }).to eq sources
-    end
-
-    it 'copies the assignated destinations paths' do
-      expect(renamer.instance_eval { @destinations }).not_to be sources
-    end
+  it 'assigns destination paths equivalent to source paths' do
+    expect(renamer.destinations).to eq sources
   end
 
-  describe '#sources' do
-    it 'returns the source paths' do
-      expect(renamer.sources).to eq sources
-    end
-  end
-
-  describe '#destinations=' do
-    it 'assigns the destination paths' do
-      renamer.destinations = destinations
-      expect(renamer.instance_eval { @destinations }).to eq destinations
-    end
+  it 'copies the assignated destinations paths' do
+    expect(renamer.destinations).not_to be sources
   end
 
   describe '#execute!' do

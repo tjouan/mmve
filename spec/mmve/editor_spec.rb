@@ -2,12 +2,6 @@ RSpec.describe MMVE::Editor do
   let(:editor_command)  { 'some editor command' }
   subject(:editor)      { described_class.new editor_command }
 
-  describe '#initialize' do
-    it 'assigns the editor command' do
-      expect(editor.instance_eval { @editor_command }).to eq editor_command
-    end
-  end
-
   describe '#edit' do
     let(:paths)     { %w[some_path other_path] }
     let(:paths_str) { paths * $/ + $/ }

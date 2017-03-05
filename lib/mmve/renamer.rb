@@ -1,7 +1,7 @@
 module MMVE
   class Renamer
     attr_reader :sources
-    attr_writer :destinations
+    attr_accessor :destinations
 
     def initialize paths
       @sources      = paths
