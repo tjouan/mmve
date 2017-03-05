@@ -1,5 +1,3 @@
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH << lib unless $LOAD_PATH.include? lib
 require 'mmve/version'
 
 Gem::Specification.new do |s|
