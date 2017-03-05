@@ -1,4 +1,4 @@
-describe MMVE::CLI do
+RSpec.describe MMVE::CLI do
   include ExitHelpers
 
   let(:arguments) { [:some, :arguments] }

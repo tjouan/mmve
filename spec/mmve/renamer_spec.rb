@@ -1,4 +1,4 @@
-describe MMVE::Renamer do
+RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_path] }
   subject(:renamer)   { MMVE::Renamer.new(sources) }
