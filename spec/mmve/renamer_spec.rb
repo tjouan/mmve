@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_path] }

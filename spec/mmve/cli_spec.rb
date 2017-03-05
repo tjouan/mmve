@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MMVE::CLI do
   include ExitHelpers
 
