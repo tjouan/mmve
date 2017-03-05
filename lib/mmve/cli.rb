@@ -1,6 +1,6 @@
 module MMVE
   class CLI
-    USAGE = "Usage: #{File.basename $0} [ path ... ]"
+    USAGE = "Usage: #{File.basename $0} [ path ... ]".freeze
 
     def initialize(arguments, stdout = $stdout)
       @arguments  = arguments
