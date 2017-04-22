@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[README.md]
 
 
-  s.add_development_dependency 'rake',      '~> 10.4'
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec',     '~> 3.2'
   s.add_development_dependency 'cucumber',  '~> 1.3'
   s.add_development_dependency 'aruba',     '~> 0.6'
