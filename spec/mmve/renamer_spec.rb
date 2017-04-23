@@ -13,17 +13,13 @@ RSpec.describe MMVE::Renamer do
   end
 
   describe '#execute!' do
-    context 'when destinations differs from sources' do
-      before do
-        renamer.destinations = destinations
-      end
+    before { renamer.destinations = destinations }
 
-      it 'renames the sources to the destinations' do
-        expect(file)
-          .to receive(:rename)
-          .with sources.first, destinations.first
-        renamer.execute!
-      end
+    it 'renames the sources to the destinations' do
+      expect(file)
+        .to receive(:rename)
+        .with sources.first, destinations.first
+      renamer.execute!
     end
 
     context 'when destinations are the same as sources' do
