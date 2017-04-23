@@ -3,15 +3,20 @@ module MMVE
     attr_reader :sources
     attr_accessor :destinations
 
-    def initialize paths
+    def initialize paths, file: File
       @sources      = paths
       @destinations = @sources.dup
+      @file         = file
     end
 
     def execute!
       [@sources, @destinations].transpose.each do |e|
-        File.rename *e if e.uniq.count == 2
+        file.rename *e if e.uniq.count == 2
       end
     end
+
+  private
+
+    attr_reader :file
   end
 end

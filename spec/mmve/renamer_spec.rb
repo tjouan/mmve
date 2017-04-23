@@ -1,7 +1,8 @@
 RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_path] }
-  subject(:renamer)   { described_class.new sources }
+  let(:file)          { File }
+  subject(:renamer)   { described_class.new sources, file: File }
 
   it 'assigns destination paths equivalent to source paths' do
     expect(renamer.destinations).to eq sources
@@ -18,7 +19,7 @@ RSpec.describe MMVE::Renamer do
       end
 
       it 'renames the sources to the destinations' do
-        expect(File)
+        expect(file)
           .to receive(:rename)
           .with sources.first, destinations.first
         renamer.execute!
@@ -29,7 +30,7 @@ RSpec.describe MMVE::Renamer do
       let(:destinations) { sources }
 
       it 'renames nothing' do
-        expect(File).not_to receive :rename
+        expect(file).not_to receive :rename
         renamer.execute!
       end
     end
