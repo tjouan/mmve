@@ -11,7 +11,9 @@ module MMVE
 
     def execute!
       [@sources, @destinations].transpose.each do |e|
-        file.rename *e if e.uniq.count == 2
+        next if e.uniq.size == 1
+        fail DestructiveRename if @sources.include? e[1]
+        file.rename *e
       end
     end
 
