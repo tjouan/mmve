@@ -1,3 +1,5 @@
+require 'baf/cli'
+
 require 'mmve/cli'
 require 'mmve/editor'
 require 'mmve/renamer'

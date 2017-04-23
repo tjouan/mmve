@@ -2,4 +2,4 @@
 
 require 'mmve'
 
-MMVE::CLI.new(ARGV).run!
+MMVE::CLI.run(ARGV)
