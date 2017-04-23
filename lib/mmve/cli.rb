@@ -1,14 +1,13 @@
 module MMVE
-  class CLI
+  class CLI < Baf::CLI
     USAGE = "Usage: #{File.basename $0} [ path ... ]".freeze
 
-    def initialize arguments, stdout = $stdout
-      @arguments  = arguments
-      @stdout     = stdout
+    def setup
+      banner USAGE
+      flag_version MMVE::VERSION
     end
 
-    def run!
-      print_usage_and_exit if @arguments.include? '-h'
+    def run
       renamer.destinations = editor.edit renamer.sources
       renamer.execute!
     end
@@ -18,14 +17,7 @@ module MMVE
     end
 
     def renamer
-      @renamer ||= Renamer.new @arguments
-    end
-
-  private
-
-    def print_usage_and_exit
-      @stdout.puts USAGE
-      exit
+      @renamer ||= Renamer.new arguments
     end
   end
 end
