@@ -1,6 +1,6 @@
 RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
-  let(:destinations)  { %w[renamed_path other_path] }
+  let(:destinations)  { %w[renamed_path other_renamed_path] }
   let(:file)          { File }
   subject(:renamer)   { described_class.new sources, file: File }
 
@@ -18,7 +18,14 @@ RSpec.describe MMVE::Renamer do
     it 'renames the sources to the destinations' do
       expect(file)
         .to receive(:rename)
-        .with sources.first, destinations.first
+        .once
+        .ordered
+        .with sources[0], destinations[0]
+      expect(file)
+        .to receive(:rename)
+        .once
+        .ordered
+        .with sources[1], destinations[1]
       renamer.execute!
     end
 
@@ -28,6 +35,15 @@ RSpec.describe MMVE::Renamer do
       it 'renames nothing' do
         expect(file).not_to receive :rename
         renamer.execute!
+      end
+    end
+
+    context 'when a destination would overwrite a source' do
+      let(:destinations)  { %w[other_path other_renamed_path] }
+
+      it 'raises an error' do
+        expect { renamer.execute! }
+          .to raise_error MMVE::DestructiveRename
       end
     end
   end

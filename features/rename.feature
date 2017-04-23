@@ -15,3 +15,13 @@ Feature: Rename files
       | renamed_file |
       | another_file |
     And the file some_file must not exist
+
+  Scenario: aborts when a rename would overwrite a file
+    Given my editor is "ed"
+    When I start the program with arguments some_file another_file
+    And I input "%s/some_file/another_file/\n"
+    And I input "wq\n"
+    Then the exit status must be 70
+    Then the following files must exist:
+      | some_file |
+      | another_file |
