@@ -1,6 +1,6 @@
 module MMVE
   class CLI < Baf::CLI
-    USAGE = "Usage: #{File.basename $0} [ path ... ]".freeze
+    USAGE = "Usage: #{File.basename $0} path [path ...]".freeze
 
     def setup
       banner USAGE
@@ -8,6 +8,7 @@ module MMVE
     end
 
     def run
+      usage! unless arguments.any?
       renamer.destinations = editor.edit renamer.sources
       renamer.execute!
     end

@@ -31,5 +31,14 @@ RSpec.describe MMVE::CLI do
       expect(cli.renamer).to receive :execute!
       cli.run
     end
+
+    context 'when no argument is given' do
+      let(:arguments) { [] }
+
+      it 'raises an ArgumentError' do
+        expect { cli.run }
+          .to raise_error MMVE::CLI::ArgumentError
+      end
+    end
   end
 end

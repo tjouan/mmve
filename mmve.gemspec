@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables = 'mmve'
   s.extra_rdoc_files = %w[README.md]
 
-  s.add_dependency 'baf', '~> 0.10'
+  s.add_dependency 'baf', '~> 0.11'
 
   s.add_development_dependency 'baf-testing'
   s.add_development_dependency 'rake'
