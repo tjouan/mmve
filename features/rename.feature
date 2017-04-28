@@ -22,6 +22,6 @@ Feature: Rename files
     And I input "%s/some_file/another_file/\n"
     And I input "wq\n"
     Then the exit status must be 70
-    Then the following files must exist:
+    And the following files must exist:
       | some_file     |
       | another_file  |
