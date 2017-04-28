@@ -1,3 +1,5 @@
+require 'fileutils'
+
 RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_renamed_path] }
@@ -44,6 +46,18 @@ RSpec.describe MMVE::Renamer do
       it 'raises an error' do
         expect { renamer.execute! }
           .to raise_error MMVE::DestructiveRename
+      end
+    end
+
+    context 'when a destination would overwrite an existing entry' do
+      it 'raises an error' do
+        Dir.mktmpdir 'mmve-spec-' do |dir|
+          Dir.chdir dir do
+            FileUtils.touch destinations[0]
+            expect { renamer.execute! }
+              .to raise_error MMVE::DestructiveRename
+          end
+        end
       end
     end
   end
