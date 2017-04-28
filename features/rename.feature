@@ -22,6 +22,7 @@ Feature: Rename files
     And I input "%s/some_file/another_file/\n"
     And I input "wq\n"
     Then the exit status must be 70
+    And the output must match /destructive/i
     And the following files must exist:
       | some_file     |
       | another_file  |
