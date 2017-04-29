@@ -26,3 +26,14 @@ Feature: Rename files
     And the following files must exist:
       | some_file     |
       | another_file  |
+
+  Scenario: aborts when a destination path is missing after edition
+    Given my editor is "ed"
+    When I start the program with arguments some_file another_file
+    And I input "/some_file/d\n"
+    And I input "wq\n"
+    Then the exit status must be 70
+    And the output must match /mismatch/i
+    And the following files must exist:
+      | some_file     |
+      | another_file  |

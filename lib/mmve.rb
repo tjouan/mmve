@@ -6,7 +6,8 @@ require 'mmve/renamer'
 require 'mmve/version'
 
 module MMVE
-  Error             = Class.new StandardError
-  RuntimeError      = Class.new Error
-  DestructiveRename = Class.new RuntimeError
+  Error                       = Class.new StandardError
+  RuntimeError                = Class.new Error
+  DestinationEntriesMismatch  = Class.new RuntimeError
+  DestructiveRename           = Class.new RuntimeError
 end

@@ -48,5 +48,12 @@ RSpec.describe MMVE::Renamer do
         end
       end
     end
+
+    context 'when given entries count does not match source entries count' do
+      it 'raises an error' do
+        expect { renamer.rename sources, %w[foo] }
+          .to raise_error MMVE::DestinationEntriesMismatch
+      end
+    end
   end
 end
