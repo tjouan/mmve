@@ -6,10 +6,12 @@ module MMVE
 
     def rename sources, destinations
       fail DestinationEntriesMismatch if sources.size != destinations.size
-      [sources, destinations].transpose.each do |e|
-        next if e.uniq.size == 1
-        fail DestructiveRename if sources.include?(e[1]) || file.exist?(e[1])
-        file.rename *e
+      [sources, destinations].transpose.each do |paths|
+        src, dst = paths
+        next if src == dst
+        fail DestructiveRename if sources.include? dst
+        fail DestructiveRename if file.exist? dst
+        file.rename *paths
       end
     end
 
