@@ -1,18 +1,13 @@
 module MMVE
   class Renamer
-    attr_reader :sources
-    attr_accessor :destinations
-
-    def initialize paths, file: File
-      @sources      = paths
-      @destinations = @sources.dup
-      @file         = file
+    def initialize file: File
+      @file = file
     end
 
-    def execute!
-      [@sources, @destinations].transpose.each do |e|
+    def rename sources, destinations
+      [sources, destinations].transpose.each do |e|
         next if e.uniq.size == 1
-        fail DestructiveRename if @sources.include?(e[1]) || file.exist?(e[1])
+        fail DestructiveRename if sources.include?(e[1]) || file.exist?(e[1])
         file.rename *e
       end
     end

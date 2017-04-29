@@ -2,33 +2,25 @@ RSpec.describe MMVE::CLI do
   include ExitHelpers
 
   let(:env)       { double 'env' }
-  let(:arguments) { %i[some arguments] }
-  subject(:cli)   { described_class.new env, arguments }
+  let(:arguments) { %w[some arguments] }
+  let(:editor)    { double 'editor' }
+  let(:renamer)   { double 'renamer' }
+  let(:options)   { { editor: editor, renamer: renamer } }
+  subject(:cli)   { described_class.new env, arguments, options }
 
   describe '#run' do
-    it 'edits the renamer source paths' do
-      renamer = double('renamer').as_null_object
-      allow(cli).to receive(:renamer) { renamer }
-      expect(cli.editor)
-        .to receive(:edit)
-        .with cli.renamer.sources
+    it 'tells the editor to edit given arguments' do
+      expect(editor).to receive(:edit).with arguments
+      allow(renamer).to receive :rename
       cli.run
     end
 
-    it 'assigns the edited source paths as the renamer destination paths' do
-      editor = double 'editor'
-      allow(cli).to receive(:editor) { editor }
-      allow(editor).to receive(:edit) { arguments }
-      expect(cli.renamer)
-        .to receive(:destinations=)
-        .with arguments
-      cli.run
-    end
-
-    it 'executes the renamer' do
-      editor = double('editor').as_null_object
-      allow(cli).to receive(:editor) { editor }
-      expect(cli.renamer).to receive :execute!
+    it 'tells the renamer to rename given arguments to edited ones' do
+      allow(editor).to receive :edit do
+        %w[renamed arguments]
+      end
+      expect(renamer)
+        .to receive(:rename).with arguments, %w[renamed arguments]
       cli.run
     end
 

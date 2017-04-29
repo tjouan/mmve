@@ -2,6 +2,12 @@ module MMVE
   class CLI < Baf::CLI
     USAGE = "Usage: #{File.basename $0} path [path ...]".freeze
 
+    def initialize env, arguments, **opts
+      super
+      @editor   = opts[:editor] || Editor.new(ENV['EDITOR'])
+      @renamer  = opts[:renamer] || Renamer.new
+    end
+
     def setup
       banner USAGE
       flag_version MMVE::VERSION
@@ -9,16 +15,11 @@ module MMVE
 
     def run
       usage! unless arguments.any?
-      renamer.destinations = editor.edit renamer.sources
-      renamer.execute!
+      renamer.rename arguments, editor.edit(arguments)
     end
 
-    def editor
-      @editor ||= Editor.new ENV['EDITOR']
-    end
+  private
 
-    def renamer
-      @renamer ||= Renamer.new arguments
-    end
+    attr_reader :editor, :renamer
   end
 end

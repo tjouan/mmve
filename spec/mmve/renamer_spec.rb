@@ -4,19 +4,9 @@ RSpec.describe MMVE::Renamer do
   let(:sources)       { %w[some_path other_path] }
   let(:destinations)  { %w[renamed_path other_renamed_path] }
   let(:file)          { File }
-  subject(:renamer)   { described_class.new sources, file: File }
+  subject(:renamer)   { described_class.new file: File }
 
-  it 'assigns destination paths equivalent to source paths' do
-    expect(renamer.destinations).to eq sources
-  end
-
-  it 'copies the assignated destinations paths' do
-    expect(renamer.destinations).not_to be sources
-  end
-
-  describe '#execute!' do
-    before { renamer.destinations = destinations }
-
+  describe '#rename' do
     it 'renames the sources to the destinations' do
       expect(file)
         .to receive(:rename)
@@ -28,15 +18,13 @@ RSpec.describe MMVE::Renamer do
         .once
         .ordered
         .with sources[1], destinations[1]
-      renamer.execute!
+      renamer.rename sources, destinations
     end
 
     context 'when destinations are the same as sources' do
-      let(:destinations) { sources }
-
       it 'renames nothing' do
         expect(file).not_to receive :rename
-        renamer.execute!
+        renamer.rename sources, sources.dup
       end
     end
 
@@ -44,7 +32,7 @@ RSpec.describe MMVE::Renamer do
       let(:destinations)  { %w[other_path other_renamed_path] }
 
       it 'raises an error' do
-        expect { renamer.execute! }
+        expect { renamer.rename sources, destinations }
           .to raise_error MMVE::DestructiveRename
       end
     end
@@ -54,7 +42,7 @@ RSpec.describe MMVE::Renamer do
         Dir.mktmpdir 'mmve-spec-' do |dir|
           Dir.chdir dir do
             FileUtils.touch destinations[0]
-            expect { renamer.execute! }
+            expect { renamer.rename sources, destinations }
               .to raise_error MMVE::DestructiveRename
           end
         end
