@@ -7,6 +7,6 @@ require 'mmve/version'
 
 module MMVE
   Error             = Class.new StandardError
-  RuntimError       = Class.new Error
-  DestructiveRename = Class.new RuntimError
+  RuntimeError      = Class.new Error
+  DestructiveRename = Class.new RuntimeError
 end
