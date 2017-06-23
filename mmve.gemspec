@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'mmve'
   s.version     = MMVE::VERSION
   s.summary     = 'Mass MV Editor'
-  s.description = 'Mass MV Editor: move files with your favourite $EDITOR'
+  s.description = 'Mass MV Editor: move files with your text editor'
   s.license     = 'BSD-3-Clause'
   s.homepage    = 'https://rubygems.org/gems/mmve'
 
